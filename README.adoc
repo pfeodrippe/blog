@@ -4,3 +4,5 @@ I want to be in the REPL and, when needed, have a convenient way to check whatâ€
 
 A inspiring talk by [Deech](https://youtu.be/ElHi2h9Ho6M) about static introspection leaded to some ideas about how to leverage the inferred schemas we collected. Itâ€™s possible to match one schema against the other, but could we have some kind of  schema similarity metric so we can try to find more interesting relationships among our schemas? This is what I will talk about, explaining my workflow as a noob at this area.
 
+
+ddd
