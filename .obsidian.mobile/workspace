@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "README.adoc.md",
+            "file": "SUMMARY.md",
             "mode": "source"
           }
         }
@@ -57,7 +57,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "README.adoc.md",
+            "file": "SUMMARY.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -73,6 +73,8 @@
   },
   "active": "6babd83cfb282d0a",
   "lastOpenFiles": [
-    "README.adoc.md"
+    "SUMMARY.md",
+    "README.adoc.md",
+    "posts/what-is-pitoco.md"
   ]
 }
