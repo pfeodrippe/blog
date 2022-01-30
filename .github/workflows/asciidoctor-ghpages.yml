@@ -30,4 +30,4 @@ jobs:
         # source_dir: docs/ # default is .
         # slides_build: true
         # pre_build:
-        post_build: ln -s "README.adoc.html" "`dirname $FILE`/index.html"
+        post_build: mv "README.adoc.html" "index.html"
