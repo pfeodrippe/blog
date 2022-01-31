@@ -35,7 +35,7 @@
         "state": {
           "type": "search",
           "state": {
-            "query": "summar",
+            "query": "pitoco",
             "matchingCase": false,
             "explainSearch": false,
             "collapseAll": false,
@@ -45,7 +45,7 @@
         }
       }
     ],
-    "currentTab": 0
+    "currentTab": 1
   },
   "right": {
     "id": "dfe589ae70cd2615",
@@ -74,8 +74,8 @@
   "active": "6babd83cfb282d0a",
   "lastOpenFiles": [
     "src/posts/pitoco.md",
-    "src/SUMMARY.md",
     "src/about.md",
+    "src/SUMMARY.md",
     "README.adoc.md"
   ]
 }
