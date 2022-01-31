@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "src/SUMMARY.md",
+            "file": "src/posts/pitoco.md",
             "mode": "source"
           }
         }
@@ -57,7 +57,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "src/SUMMARY.md",
+            "file": "src/posts/pitoco.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -73,9 +73,9 @@
   },
   "active": "6babd83cfb282d0a",
   "lastOpenFiles": [
+    "src/posts/pitoco.md",
     "src/SUMMARY.md",
     "src/about.md",
-    "src/posts/pitoco.md",
     "README.adoc.md"
   ]
 }
