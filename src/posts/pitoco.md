@@ -51,7 +51,7 @@ You can not only output API schemas, but also, because of Malli, generate Open A
 When outputing API schemas, you are also able to define custom data types (e.g. using regex) and have it in the schema if applicable, so you can extend the available types for your context (e.g your system has some external id format or you divide your users based on age intervals, just define it with Malli and you are good to go), see [here](https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj#L149).
 
 Besides the API, Pitoco also has a visualizer for the API schemas, see the image below (it even includes a diff with a previous version of a schema)
-![[9404C79A-2D4A-4B76-A4A9-E469A14FCF65.png]]
+![Pitoco visualizer](images/pitoco-visualizer.png)
 
 ## Other use cases
 In Gravie we use Cypress (with Clojurescript) for our isolated front end tests (they do not talk to a server or database) and we have to mock many of requests/responses for the used endpoints (generally only once so we make a fixture out of it), they can get out of sync quickly if we don't take care of updating them. I was a let to use Pitoco to generate API schemas from the JSON files (no need to capture packets here as we already had the request/response in JSON format), one low-hang fruit would be to compare them with the generated API schemas from the server. If I do this I will try to write some new post.

@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "src/posts/pitoco.md",
-            "mode": "source"
+            "mode": "preview"
           }
         }
       }
@@ -45,7 +45,7 @@
         }
       }
     ],
-    "currentTab": 1
+    "currentTab": 0
   },
   "right": {
     "id": "dfe589ae70cd2615",
@@ -74,6 +74,8 @@
   "active": "6babd83cfb282d0a",
   "lastOpenFiles": [
     "src/posts/pitoco.md",
+    "src/posts/images/pitoco-visualizer.png",
+    "images/pitoco-visualizer.png.md",
     "src/about.md",
     "src/SUMMARY.md",
     "README.adoc.md"
