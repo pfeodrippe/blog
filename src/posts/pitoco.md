@@ -2,7 +2,7 @@
 
 One project I have been working recently is [Pitoco](https://github.com/pfeodrippe/pitoco), it’s written in Clojure and was originally created with the purpose of inferring REST HTTP requests using packet capture, heavily inspired in a startup called [Akita](https://www.akitasoftware.com/blog). 
 
-The first place where I tested it was in my daily job (Gravie, a healthcare startup company[^gravie]). At Gravie there is a legacy app in Grails (we are migrating/doing new services to/in Clojure) which exposes many REST endpoints and I wanted to understand more what's was there, this happened at the same time as I was reading some awesome posts from the Akita blog and that was the trigger which leaded to this project. Let's see how you could use it in your project.
+The first place where I tested it was in my daily job (Gravie, a healthcare startup company). At Gravie there is a legacy app in Grails (we are migrating/doing new services to/in Clojure) which exposes many REST endpoints and I wanted to understand more what's was there, this happened at the same time as I was reading some awesome posts from the Akita blog and that was the trigger which leaded to this project. Let's see how you could use it in your project.
 
 ## Capturing network data
 Imagine you have your server for integration or E2E tests at  `localhost:8005`. You have no OpenAPI schema or most of the documentation is outdated, you can start `tcpdump` to capture packet data.
@@ -68,5 +68,3 @@ Recently Pitoco added support to infer Malli schemas (**not** API schemas) from 
 -   Inline schemas into code
 
 Well... lots of stuff to pay, let's see what's useful. Open an issue or create a PR if you have any idea as well o/
-
-[^gravie]: (we are hiring, send a email our [CTO](mailto:mcameron@gravie.com))
