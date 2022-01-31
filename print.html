@@ -154,14 +154,58 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pitoco"><a class="header" href="#pitoco">Pitoco</a></h1>
 <p>One project I have been working recently is <a href="https://github.com/pfeodrippe/pitoco">Pitoco</a>, it’s written in Clojure and was originally created with the purpose of inferring REST HTTP requests using packet capture, heavily inspired in a startup called <a href="https://www.akitasoftware.com/blog">Akita</a>. </p>
 <p>The first place where I tested it was in my daily job (Gravie, a healthcare startup company<sup class="footnote-reference"><a href="#gravie">1</a></sup>). At Gravie there is a legacy app in Grails (we are migrating/doing new services to/in Clojure) which exposes many REST endpoints and I wanted to understand more what's was there, this happened at the same time as I was reading some awesome posts from the Akita blog and that was the trigger which leaded to this project. Let's see how you could use it in your project.</p>
-<h2 id="capture-packet-data"><a class="header" href="#capture-packet-data">Capture packet data</a></h2>
-<p>Imagine you have your server for integration or E2E tests at  <code>localhost:8005</code>. You have no OpenAPI schema or most of the documentation is outdated, you can start <code>tcpdump</code> to capture packet data (which we will see how to process later).</p>
-<pre><code class="language-bash">tcpdump -i lo0 'port 8005' -w lo.pcap
+<h2 id="capturing-network-data"><a class="header" href="#capturing-network-data">Capturing network data</a></h2>
+<p>Imagine you have your server for integration or E2E tests at  <code>localhost:8005</code>. You have no OpenAPI schema or most of the documentation is outdated, you can start <code>tcpdump</code> to capture packet data.</p>
+<pre><code class="language-bash">tcpdump -i lo0 'port 8005' -w dump.pcap
 </code></pre>
-<p>In some other terminal you can exercise the endpoints (e.g. by running the tests). When the exercise is finished, stop <code>tcpdump</code> run and check that you have a <code>lo.pcap</code> file. These are your TCP packets in some binary format (I'm not a network person, so pardon my language)</p>
-<p>TODO Another usage was for Cypress tests.</p>
+<p>In some other terminal you can exercise the endpoints (e.g. by running the tests). When the exercise is finished, stop <code>tcpdump</code> run and check that you have a <code>dump.pcap</code> file created. These are your TCP packets in some binary format (I'm not a network person, so pardon my language), let's see how to process these.</p>
+<h2 id="inferring-schemas"><a class="header" href="#inferring-schemas">Inferring schemas</a></h2>
+<p>In <code>pitoco.core</code> there is a <code>process</code> function which enables you to infer and output the schemas (backed by <a href="https://github.com/metosin/malli">Malli</a>) found in the dump file (for now it filters only the 200 status requests, but it could be a user input). </p>
+<p><code>process</code> uses <a href="https://pathom3.wsscode.com/">Pathom 3</a> behind the scenes, its API is similar to the one used by Pathom and I would recommend you to check its documentation to see the possibilities (there is much more you can do!) and to understand the relationship between the input, outputs and resolvers.</p>
+<p>See below for a example (assuming what's in your dump file had only one valid request captured and it was from httpbin).</p>
+<pre><code class="language-clojure">(ns foo
+  (:require
+    [pitoco.core :as pit]))
+
+(pit/process {::pit/pcap-path &quot;path/to/some/folder/dump.pcap&quot;}
+             [::pit/api-schemas])
+
+;; =&gt;
+{::pit/api-schemas '[{:path &quot;/get&quot;
+                      :method :get
+                      :host &quot;httpbin.org&quot;
+                      :request-schema any?
+                      :response-schema
+                      [:map
+                       [:args [:map]]
+                       [:headers
+                        [:map
+                         [:Accept string?]
+                         [:Host string?]
+                         [:User-Agent string?]
+                         [:X-Amzn-Trace-Id string?]]]
+                       [:origin string?]
+                       [:url string?]]}]}
+</code></pre>
+<p>You can not only output API schemas, but also, because of Malli, generate Open API schemas, see the <a href="https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj">test file</a> in the Pitoco repo for some examples. Use <a href="https://github.com/wilkerlucio/pathom-viz">Pathom Viz</a> to play with the exposed Pitoco Pathom API.</p>
+<p>When outputing API schemas, you are also able to define custom data types (e.g. using regex) and have it in the schema if applicable, so you can extend the available types for your context (e.g your system has some external id format or you divide your users based on age intervals, just define it with Malli and you are good to go), see https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj#L149.</p>
+<h2 id="use-cases"><a class="header" href="#use-cases">Use cases</a></h2>
+<p>In Gravie we use Cypress (with Clojurescript) a lot for our isolated front end tests (they do not talk to a server or database) and we have to mock a lot of requests/responses for the used endpoints (generally only once so we make a fixture out of it), they can get out of sync quickly if we don't take care of updating them. I used Pitoco to generate API schemas from the JSON files (no need to capture packets here as we already had the request/response in JSON format), one low-hang fruit would be to compare them with the generated API schemas from the server. If I do this I will try write some new post.</p>
+<p>Recently Pitoco added support to infer Malli schemas (<strong>not</strong> API schemas) from Clojure vars when you exercise them (e.g. when running tests after instrumentation), check a video at https://youtu.be/MloJSCl38d0, it deserves its own post. With it we have runtime information in a static format and could, for some ideas, do the following:</p>
+<ul>
+<li>Look for usages of a keyword (output/input)</li>
+<li>Match similarity between schemas</li>
+<li>Match outputs with inputs</li>
+<li>Check stacktraces to find call ordering</li>
+<li>Create diffs among different schemas</li>
+<li>Show diffs for the same var using the visualizar (evolution from one schema to the other)</li>
+<li>Index schemas for querying</li>
+<li>Indicate which functions can be REPLed in isolation?</li>
+<li>Inline schemas into code</li>
+</ul>
+<p>Well... lots of stuff to do, let's see what we can do. Open an issue or create a PR if you have any idea as well</p>
 <div class="footnote-definition" id="gravie"><sup class="footnote-definition-label">1</sup>
-<p>(we are hiring, send a email to <a href="posts/mcameron@gravie.com">our CTO</a>)</p>
+<p>(we are hiring, send a email our <a href="posts/mcameron@gravie.com">CTO</a>)</p>
 </div>
 
                     </main>
