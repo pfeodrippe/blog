@@ -160,9 +160,9 @@
 </code></pre>
 <p>In some other terminal you can exercise the endpoints (e.g. by running the tests). When the exercise is finished, stop <code>tcpdump</code> run and check that you have a <code>dump.pcap</code> file created. These are your TCP packets in some binary format (I'm not a network person, so pardon my language), let's see how to process these.</p>
 <h2 id="inferring-schemas"><a class="header" href="#inferring-schemas">Inferring schemas</a></h2>
-<p>In <code>pitoco.core</code> there is a <code>process</code> function which enables you to infer and output the schemas (backed by <a href="https://github.com/metosin/malli">Malli</a>) found in the dump file (for now it filters only the 200 status requests, but it could be a user input). </p>
-<p><code>process</code> uses <a href="https://pathom3.wsscode.com/">Pathom 3</a> behind the scenes, its API is similar to the one used by Pathom and I would recommend you to check its documentation to see the possibilities (there is much more you can do!) and to understand the relationship between the input, outputs and resolvers.</p>
-<p>See below for a example (assuming what's in your dump file had only one valid request captured and it was from httpbin).</p>
+<p>In <code>pitoco.core</code> there is a <code>process</code> function which enables you to infer and output the schemas (backed by <a href="https://github.com/metosin/malli">Malli</a>) found in the dump file.</p>
+<p><code>process</code> uses <a href="https://pathom3.wsscode.com/">Pathom 3</a> behind the scenes and its API is similar to the one used by Pathom, I would recommend you to check its documentation to see the possibilities (there is much more you can do!) and to understand the relationship between the input, outputs and resolvers.</p>
+<p>See below for a example (assuming your dump file has only one valid request captured and it was from httpbin).</p>
 <pre><code class="language-clojure">(ns foo
   (:require
     [pitoco.core :as pit]))
@@ -188,10 +188,10 @@
                        [:url string?]]}]}
 </code></pre>
 <p>You can not only output API schemas, but also, because of Malli, generate Open API schemas, see the <a href="https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj">test file</a> in the Pitoco repo for some examples. Use <a href="https://github.com/wilkerlucio/pathom-viz">Pathom Viz</a> to play with the exposed Pitoco Pathom API.</p>
-<p>When outputing API schemas, you are also able to define custom data types (e.g. using regex) and have it in the schema if applicable, so you can extend the available types for your context (e.g your system has some external id format or you divide your users based on age intervals, just define it with Malli and you are good to go), see https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj#L149.</p>
+<p>When outputing API schemas, you are also able to define custom data types (e.g. using regex) and have it in the schema if applicable, so you can extend the available types for your context (e.g your system has some external id format or you divide your users based on age intervals, just define it with Malli and you are good to go), see <a href="https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj#L149">here</a>.</p>
 <h2 id="use-cases"><a class="header" href="#use-cases">Use cases</a></h2>
-<p>In Gravie we use Cypress (with Clojurescript) a lot for our isolated front end tests (they do not talk to a server or database) and we have to mock a lot of requests/responses for the used endpoints (generally only once so we make a fixture out of it), they can get out of sync quickly if we don't take care of updating them. I used Pitoco to generate API schemas from the JSON files (no need to capture packets here as we already had the request/response in JSON format), one low-hang fruit would be to compare them with the generated API schemas from the server. If I do this I will try write some new post.</p>
-<p>Recently Pitoco added support to infer Malli schemas (<strong>not</strong> API schemas) from Clojure vars when you exercise them (e.g. when running tests after instrumentation), check a video at https://youtu.be/MloJSCl38d0, it deserves its own post. With it we have runtime information in a static format and could, for some ideas, do the following:</p>
+<p>In Gravie we use Cypress (with Clojurescript) for our isolated front end tests (they do not talk to a server or database) and we have to mock many of requests/responses for the used endpoints (generally only once so we make a fixture out of it), they can get out of sync quickly if we don't take care of updating them. I was a let to use Pitoco to generate API schemas from the JSON files (no need to capture packets here as we already had the request/response in JSON format), one low-hang fruit would be to compare them with the generated API schemas from the server. If I do this I will try to write some new post.</p>
+<p>Recently Pitoco added support to infer Malli schemas (<strong>not</strong> API schemas) from Clojure vars when you exercise them (e.g. when running tests after instrumentation), check a video at <a href="https://youtu.be/MloJSCl38d0">https://youtu.be/MloJSCl38d0</a>. With the instrumentation we have runtime information in a static format and could, among other ideas, do the following:</p>
 <ul>
 <li>Look for usages of a keyword (output/input)</li>
 <li>Match similarity between schemas</li>
@@ -203,9 +203,9 @@
 <li>Indicate which functions can be REPLed in isolation?</li>
 <li>Inline schemas into code</li>
 </ul>
-<p>Well... lots of stuff to do, let's see what we can do. Open an issue or create a PR if you have any idea as well</p>
+<p>Well... lots of stuff to pay, let's see what's useful. Open an issue or create a PR if you have any idea as well o/</p>
 <div class="footnote-definition" id="gravie"><sup class="footnote-definition-label">1</sup>
-<p>(we are hiring, send a email our <a href="posts/mcameron@gravie.com">CTO</a>)</p>
+<p>(we are hiring, send a email our <a href="mailto:mcameron@gravie.com">CTO</a>)</p>
 </div>
 
                     </main>
