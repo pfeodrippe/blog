@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "src/posts/what-is-pitoco.md",
+            "file": "src/posts/pitoco.md",
             "mode": "source"
           }
         }
@@ -35,7 +35,7 @@
         "state": {
           "type": "search",
           "state": {
-            "query": "",
+            "query": "summar",
             "matchingCase": false,
             "explainSearch": false,
             "collapseAll": false,
@@ -45,7 +45,7 @@
         }
       }
     ],
-    "currentTab": 0
+    "currentTab": 1
   },
   "right": {
     "id": "dfe589ae70cd2615",
@@ -57,7 +57,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "src/posts/what-is-pitoco.md",
+            "file": "src/posts/pitoco.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -73,8 +73,9 @@
   },
   "active": "6babd83cfb282d0a",
   "lastOpenFiles": [
-    "src/posts/what-is-pitoco.md",
+    "src/posts/pitoco.md",
     "src/SUMMARY.md",
+    "about.md",
     "README.adoc.md"
   ]
 }

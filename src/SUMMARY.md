@@ -1,2 +1,3 @@
 # Posts
-- [What is Pitoco?](posts/what-is-pitoco.md)
+[About Me](about.md) 
+- [What is Pitoco?](pitoco.md)

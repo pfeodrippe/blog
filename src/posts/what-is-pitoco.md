@@ -1,7 +1,0 @@
-One project I have been working on is [Pitoco](https://github.com/pfeodrippe/pitoco), it’s written in Clojure and was originally created with the purpose of inferring REST HTTP requests through packet capture heavily inspired in startup called [Akita](https://www.akitasoftware.com/blog). But, being in Clojure, we start about doing things for the language itself.
-
-I want to be in the REPL and, when needed, have a convenient way to check what’s the format of the data I’m working on for a particular workflow. So in pitoco I have created a `pitoco.instrument` namespace where you can instrument the vars, run some code (e.g. some test) which is where we collect inputs and outputs for the instrumented var and then infer the schemas for each of them (in [Malli](https://github.com/metosin/malli) format).  I will not go further on this topic as we will talk about something else, but you can see a [small video demonstrating this feature](https://youtu.be/MloJSCl38d0). This is all good and nice, but what we can do more?
-
-A inspiring talk by [Deech](https://youtu.be/ElHi2h9Ho6M) about static introspection leaded to some ideas about how to leverage the inferred schemas we collected. It’s possible to match one schema against the other, but could we have some kind of  schema similarity metric so we can try to find more interesting relationships among our schemas? This is what I will talk about, explaining my workflow as a noob at this area.
-
-TODO
