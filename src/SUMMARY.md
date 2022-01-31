@@ -1,3 +1,3 @@
 # Posts
-[About Me](about.md) 
-- [What is Pitoco?](pitoco.md)
+[About Me](./about.md) 
+- [What is Pitoco?](posts/pitoco.md)
