@@ -153,7 +153,7 @@
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pitoco"><a class="header" href="#pitoco">Pitoco</a></h1>
 <p>One project I have been working recently is <a href="https://github.com/pfeodrippe/pitoco">Pitoco</a>, it’s written in Clojure and was originally created with the purpose of inferring REST HTTP requests using packet capture, heavily inspired in a startup called <a href="https://www.akitasoftware.com/blog">Akita</a>. </p>
-<p>The first place where I tested it was in my daily job (Gravie, a healthcare startup company<sup class="footnote-reference"><a href="#gravie">1</a></sup>). At Gravie there is a legacy app in Grails (we are migrating/doing new services to/in Clojure) which exposes many REST endpoints and I wanted to understand more what's was there, this happened at the same time as I was reading some awesome posts from the Akita blog and that was the trigger which leaded to this project. Let's see how you could use it in your project.</p>
+<p>The first place where I tested it was in my daily job (Gravie, a healthcare startup company). At Gravie there is a legacy app in Grails (we are migrating/doing new services to/in Clojure) which exposes many REST endpoints and I wanted to understand more what's was there, this happened at the same time as I was reading some awesome posts from the Akita blog and that was the trigger which leaded to this project. Let's see how you could use it in your project.</p>
 <h2 id="capturing-network-data"><a class="header" href="#capturing-network-data">Capturing network data</a></h2>
 <p>Imagine you have your server for integration or E2E tests at  <code>localhost:8005</code>. You have no OpenAPI schema or most of the documentation is outdated, you can start <code>tcpdump</code> to capture packet data.</p>
 <pre><code class="language-bash">tcpdump -i lo0 'port 8005' -w dump.pcap
@@ -204,9 +204,6 @@
 <li>Inline schemas into code</li>
 </ul>
 <p>Well... lots of stuff to pay, let's see what's useful. Open an issue or create a PR if you have any idea as well o/</p>
-<div class="footnote-definition" id="gravie"><sup class="footnote-definition-label">1</sup>
-<p>(we are hiring, send a email our <a href="mailto:mcameron@gravie.com">CTO</a>)</p>
-</div>
 
                     </main>
 
