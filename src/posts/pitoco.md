@@ -14,11 +14,11 @@ tcpdump -i lo0 'port 8005' -w dump.pcap
 In some other terminal you can exercise the endpoints (e.g. by running the tests). When the exercise is finished, stop `tcpdump` run and check that you have a `dump.pcap` file created. These are your TCP packets in some binary format (I'm not a network person, so pardon my language), let's see how to process these.
 
 ## Inferring schemas
-In `pitoco.core` there is a `process` function which enables you to infer and output the schemas (backed by [Malli](https://github.com/metosin/malli)) found in the dump file (for now it filters only the 200 status requests, but it could be a user input). 
+In `pitoco.core` there is a `process` function which enables you to infer and output the schemas (backed by [Malli](https://github.com/metosin/malli)) found in the dump file.
 
-`process` uses [Pathom 3](https://pathom3.wsscode.com/) behind the scenes, its API is similar to the one used by Pathom and I would recommend you to check its documentation to see the possibilities (there is much more you can do!) and to understand the relationship between the input, outputs and resolvers.
+`process` uses [Pathom 3](https://pathom3.wsscode.com/) behind the scenes and its API is similar to the one used by Pathom, I would recommend you to check its documentation to see the possibilities (there is much more you can do!) and to understand the relationship between the input, outputs and resolvers.
 
-See below for a example (assuming what's in your dump file had only one valid request captured and it was from httpbin).
+See below for a example (assuming your dump file has only one valid request captured and it was from httpbin).
 
 ```clojure
 (ns foo
@@ -48,12 +48,12 @@ See below for a example (assuming what's in your dump file had only one valid re
 
 You can not only output API schemas, but also, because of Malli, generate Open API schemas, see the [test file](https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj) in the Pitoco repo for some examples. Use [Pathom Viz](https://github.com/wilkerlucio/pathom-viz) to play with the exposed Pitoco Pathom API.
 
-When outputing API schemas, you are also able to define custom data types (e.g. using regex) and have it in the schema if applicable, so you can extend the available types for your context (e.g your system has some external id format or you divide your users based on age intervals, just define it with Malli and you are good to go), see https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj#L149.
+When outputing API schemas, you are also able to define custom data types (e.g. using regex) and have it in the schema if applicable, so you can extend the available types for your context (e.g your system has some external id format or you divide your users based on age intervals, just define it with Malli and you are good to go), see [here](https://github.com/pfeodrippe/pitoco/blob/master/test/pitoco/core_test.clj#L149).
 
 ## Use cases
-In Gravie we use Cypress (with Clojurescript) a lot for our isolated front end tests (they do not talk to a server or database) and we have to mock a lot of requests/responses for the used endpoints (generally only once so we make a fixture out of it), they can get out of sync quickly if we don't take care of updating them. I used Pitoco to generate API schemas from the JSON files (no need to capture packets here as we already had the request/response in JSON format), one low-hang fruit would be to compare them with the generated API schemas from the server. If I do this I will try write some new post.
+In Gravie we use Cypress (with Clojurescript) for our isolated front end tests (they do not talk to a server or database) and we have to mock many of requests/responses for the used endpoints (generally only once so we make a fixture out of it), they can get out of sync quickly if we don't take care of updating them. I was a let to use Pitoco to generate API schemas from the JSON files (no need to capture packets here as we already had the request/response in JSON format), one low-hang fruit would be to compare them with the generated API schemas from the server. If I do this I will try to write some new post.
 
-Recently Pitoco added support to infer Malli schemas (**not** API schemas) from Clojure vars when you exercise them (e.g. when running tests after instrumentation), check a video at https://youtu.be/MloJSCl38d0, it deserves its own post. With it we have runtime information in a static format and could, for some ideas, do the following:
+Recently Pitoco added support to infer Malli schemas (**not** API schemas) from Clojure vars when you exercise them (e.g. when running tests after instrumentation), check a video at [https://youtu.be/MloJSCl38d0](https://youtu.be/MloJSCl38d0). With the instrumentation we have runtime information in a static format and could, among other ideas, do the following:
 -   Look for usages of a keyword (output/input)
 -   Match similarity between schemas
 -   Match outputs with inputs
@@ -64,6 +64,6 @@ Recently Pitoco added support to infer Malli schemas (**not** API schemas) from 
 -   Indicate which functions can be REPLed in isolation?
 -   Inline schemas into code
 
-Well... lots of stuff to do, let's see what we can do. Open an issue or create a PR if you have any idea as well
+Well... lots of stuff to pay, let's see what's useful. Open an issue or create a PR if you have any idea as well o/
 
-[^gravie]: (we are hiring, send a email our [CTO](mcameron@gravie.com))
+[^gravie]: (we are hiring, send a email our [CTO](mailto:mcameron@gravie.com))
